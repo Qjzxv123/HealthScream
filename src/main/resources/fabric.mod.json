@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "scream-mod",
 	"version": "${version}",
-	"name": "Scream Mod",
+	"name": "Heart Scream",
 	"description": "A mod that screams at you when you're low on health!",
 	"authors": [
 		"Aidan McClain"
@@ -12,7 +12,7 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/scream-mod/icon.png",
 	"environment": "*",
 	"entrypoints": {
   "client": [
@@ -23,9 +23,9 @@
   ]
 },
 	"mixins": [
-		"modid.mixins.json",
+		"scream.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "scream.client.mixins.json",
 			"environment": "client"
 		}
 	],
