@@ -1,4 +1,4 @@
-package com.example.scream;
+package com.example.screammod.integration;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -6,6 +6,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.text.Text;
+import com.example.screammod.client.ScreamMod;
 
 public class ModMenuIntegration implements ModMenuApi {
     @Override

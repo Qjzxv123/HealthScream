@@ -1,9 +1,9 @@
-package com.example.scream;
+package com.example.screammod.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
+import com.example.screammod.config.ModConfig;
 
 public class ScreamMod implements ClientModInitializer {
     // Static so ModMenuIntegration can access it
@@ -25,10 +25,6 @@ public class ScreamMod implements ClientModInitializer {
                 if (health < threshold && !hasScreamed) {
                     // Trigger the scream
                     client.player.playSound(SoundEvents.ENTITY_GHAST_SCREAM, 1.0f, 1.0f);
-                    
-                    // Optional: Overlay message
-                    client.player.sendMessage(Text.of("§4❤ LOW HEALTH SCREAM! §4❤"), true);
-                    
                     hasScreamed = true;
                 } 
                 // Reset the trigger once you heal back above the threshold

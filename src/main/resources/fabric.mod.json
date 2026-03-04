@@ -15,11 +15,11 @@
 	"icon": "assets/scream-mod/icon.png",
 	"environment": "*",
 	"entrypoints": {
-  "main": [
-    "com.example.scream.ScreamMod"
+  "client": [
+    "com.example.screammod.client.ScreamMod"
   ],
   "modmenu": [
-    "com.example.scream.ModMenuIntegration"
+    "com.example.screammod.integration.ModMenuIntegration"
   ]
 },
 	"mixins": [

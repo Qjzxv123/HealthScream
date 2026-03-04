@@ -1,13 +1,17 @@
-package com.example.scream;
+package com.example.screammod.config;
 
-import net.fabricmc.loader.api.FabricLoader;
 import java.io.*;
 import java.util.Properties;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class ModConfig {
     // Saves to .minecraft/config/scream_mod.properties
-    private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("scream_mod.properties").toFile();
-    public float triggerHearts = 7.0f; 
+    private File CONFIG_FILE;
+    public float triggerHearts = 7.0f;
+
+    public ModConfig() {
+        CONFIG_FILE = new File(FabricLoader.getInstance().getConfigDir().toFile(), "scream_mod.properties");
+    } 
 
     public void load() {
         if (!CONFIG_FILE.exists()) {
