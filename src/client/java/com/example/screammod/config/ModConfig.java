@@ -7,7 +7,8 @@ import net.fabricmc.loader.api.FabricLoader;
 public class ModConfig {
     // Saves to .minecraft/config/scream_mod.properties
     private File CONFIG_FILE;
-    public float triggerHearts = 7.0f;
+    public float triggerHearts = 14.0f;
+    public long screamInterval = 500L; // milliseconds
 
     public ModConfig() {
         CONFIG_FILE = new File(FabricLoader.getInstance().getConfigDir().toFile(), "scream_mod.properties");
@@ -22,6 +23,7 @@ public class ModConfig {
             Properties prop = new Properties();
             prop.load(input);
             triggerHearts = Float.parseFloat(prop.getProperty("triggerHearts", "7.0"));
+            screamInterval = Long.parseLong(prop.getProperty("screamInterval", "500"));
         } catch (IOException | NumberFormatException e) {
             System.err.println("[ScreamMod] Failed to load config!");
         }
@@ -31,6 +33,7 @@ public class ModConfig {
         try (OutputStream output = new FileOutputStream(CONFIG_FILE)) {
             Properties prop = new Properties();
             prop.setProperty("triggerHearts", String.valueOf(triggerHearts));
+            prop.setProperty("screamInterval", String.valueOf(screamInterval));
             prop.store(output, "Scream Mod Config");
         } catch (IOException e) {
             System.err.println("[ScreamMod] Failed to save config!");

@@ -21,12 +21,21 @@ public class ModMenuIntegration implements ModMenuApi {
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
             // Add the Heart Threshold Slider/Field
-            general.addEntry(entryBuilder.startFloatField(Text.of("Scream at Hearts"), ScreamMod.config.triggerHearts)
+            general.addEntry(entryBuilder.startFloatField(Text.of("Scream at Hearts(1-20)"), ScreamMod.config.triggerHearts)
                 .setDefaultValue(7.0f)
                 .setMin(0.5f)
                 .setMax(20.0f)
                 .setTooltip(Text.of("The mod will scream when you fall below this many hearts."))
                 .setSaveConsumer(newValue -> ScreamMod.config.triggerHearts = newValue)
+                .build());
+
+            // Add the Scream Interval Slider/Field
+            general.addEntry(entryBuilder.startLongField(Text.of("Scream Interval (ms)"), ScreamMod.config.screamInterval)
+                .setDefaultValue(500L)
+                .setMin(100L)
+                .setMax(5000L)
+                .setTooltip(Text.of("Milliseconds between screams while below the heart threshold."))
+                .setSaveConsumer(newValue -> ScreamMod.config.screamInterval = newValue)
                 .build());
 
             // Save the file when the user clicks "Save and Quit"
