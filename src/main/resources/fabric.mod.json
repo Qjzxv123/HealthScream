@@ -1,11 +1,11 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "scream-mod",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Scream Mod",
+	"description": "A mod that screams at you when you're low on health!",
 	"authors": [
-		"Me!"
+		"Aidan McClain"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -15,13 +15,13 @@
 	"icon": "assets/modid/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
-		"client": [
-			"com.example.ExampleModClient"
-		]
-	},
+  "client": [
+    "com.example.scream.ScreamMod"
+  ],
+  "modmenu": [
+    "com.example.scream.ModMenuIntegration"
+  ]
+},
 	"mixins": [
 		"modid.mixins.json",
 		{
