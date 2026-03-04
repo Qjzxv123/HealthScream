@@ -15,7 +15,7 @@
 	"icon": "assets/scream-mod/icon.png",
 	"environment": "*",
 	"entrypoints": {
-  "client": [
+  "main": [
     "com.example.scream.ScreamMod"
   ],
   "modmenu": [
