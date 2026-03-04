@@ -2,7 +2,6 @@ package com.example.screammod.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.sound.SoundEvents;
 import com.example.screammod.config.ModConfig;
 
 public class ScreamMod implements ClientModInitializer {
@@ -25,7 +24,7 @@ public class ScreamMod implements ClientModInitializer {
                 if (health < threshold) {
                     // Keep screaming at intervals while below threshold
                     if (currentTime - lastScreamTime >= config.screamInterval) {
-                        client.player.playSound(SoundEvents.ENTITY_GHAST_SCREAM, 1.0f, 1.0f);
+                        client.player.playSound(config.getSoundEvent(), 1.0f, 1.0f);
                         lastScreamTime = currentTime;
                     }
                 } 

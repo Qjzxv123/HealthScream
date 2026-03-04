@@ -38,6 +38,13 @@ public class ModMenuIntegration implements ModMenuApi {
                 .setSaveConsumer(newValue -> ScreamMod.config.screamInterval = newValue)
                 .build());
 
+            // Add the Sound Selector
+            general.addEntry(entryBuilder.startStrField(Text.of("Scream Sound"), ScreamMod.config.soundId)
+                .setDefaultValue("minecraft:entity.ghast.scream")
+                .setTooltip(Text.of("Enter Minecraft sound ID (e.g., minecraft:entity.ghast.scream)"))
+                .setSaveConsumer(newValue -> ScreamMod.config.soundId = newValue)
+                .build());
+
             // Save the file when the user clicks "Save and Quit"
             builder.setSavingRunnable(() -> {
                 ScreamMod.config.save();
