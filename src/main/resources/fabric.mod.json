@@ -23,12 +23,8 @@
   ]
 },
 	"mixins": [
-		"scream.mixins.json",
-		{
-			"config": "scream.client.mixins.json",
-			"environment": "client"
-		}
-	],
+        "scream.mixins.json"
+    ],
 	"depends": {
 		"fabricloader": ">=0.18.2",
 		"minecraft": "~1.21.11",

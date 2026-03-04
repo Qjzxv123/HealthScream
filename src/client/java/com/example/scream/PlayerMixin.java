@@ -9,18 +9,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class PlayerMixin {
+
     @Inject(method = "setHealth", at = @At("HEAD"))
     private void onSetHealth(float health, CallbackInfo ci) {
-        // Check if this entity is a player
-        if ((Object) this instanceof PlayerEntity player) {
-            // Only run on the client side to play sound
-            if (player.getWorld().isClient) {
+        // We cast 'this' to LivingEntity to access vanilla methods
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (entity instanceof PlayerEntity player) {
+            // Check if we are on the client side
+            if (player.getEntityWorld().isClient()) {
                 float threshold = ScreamMod.config.triggerHearts;
+                
+                // If new health is below threshold and old health was above
                 if (health <= threshold && player.getHealth() > threshold) {
-                    // This is where you call your scream logic!
-                    System.out.println("LOW HEALTH DETECTED: Playing Scream!");
+                    System.out.println("[ScreamMod] Threshold reached! Playing sound...");
+                    // Add your sound playing logic here later
                 }
             }
         }
     }
-}
+} // <--- MAKE SURE THIS FINAL BRACE EXISTS!
