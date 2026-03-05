@@ -39,9 +39,9 @@ public class ModMenuIntegration implements ModMenuApi {
                 .build());
 
             // Add the Sound Selector
-            general.addEntry(entryBuilder.startStrField(Text.of("Scream Sound"), ScreamMod.config.soundId)
+            general.addEntry(entryBuilder.startStrField(Text.of("Hearts Scream Sound"), ScreamMod.config.soundId)
                 .setDefaultValue("scream-mod:default")
-                .setTooltip(Text.of("Enter Minecraft sound ID (e.g., minecraft:entity.ghast.scream)"))
+                .setTooltip(Text.of("Enter Minecraft sound ID (e.g., minecraft:entity.ghast.scream) or mod sound (e.g., scream-mod:default)"))
                 .setSaveConsumer(newValue -> ScreamMod.config.soundId = newValue)
                 .build());
 
