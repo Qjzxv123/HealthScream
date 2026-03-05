@@ -1,0 +1,12 @@
+{
+  "default": {
+    "sounds": [
+      "scream-mod:default"
+    ]
+  },
+  "potup": {
+    "sounds": [
+      "scream-mod:potup"
+    ]
+  }
+}

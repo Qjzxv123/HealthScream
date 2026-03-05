@@ -40,9 +40,32 @@ public class ModMenuIntegration implements ModMenuApi {
 
             // Add the Sound Selector
             general.addEntry(entryBuilder.startStrField(Text.of("Scream Sound"), ScreamMod.config.soundId)
-                .setDefaultValue("minecraft:entity.ghast.scream")
+                .setDefaultValue("scream-mod:default")
                 .setTooltip(Text.of("Enter Minecraft sound ID (e.g., minecraft:entity.ghast.scream)"))
                 .setSaveConsumer(newValue -> ScreamMod.config.soundId = newValue)
+                .build());
+
+            // Effect warning settings
+            general.addEntry(entryBuilder.startStrField(Text.of("Effect Warning Sound"), ScreamMod.config.effectSoundId)
+                .setDefaultValue("scream-mod:default")
+                .setTooltip(Text.of("Sound played when fire resistance/speed/strength is about to expire"))
+                .setSaveConsumer(newValue -> ScreamMod.config.effectSoundId = newValue)
+                .build());
+
+            general.addEntry(entryBuilder.startIntField(Text.of("Effect Warning Threshold (s)"), ScreamMod.config.effectThresholdSeconds)
+                .setDefaultValue(5)
+                .setMin(1)
+                .setMax(60)
+                .setTooltip(Text.of("Number of seconds remaining on the potion effect when the warning should start"))
+                .setSaveConsumer(newValue -> ScreamMod.config.effectThresholdSeconds = newValue)
+                .build());
+
+            general.addEntry(entryBuilder.startLongField(Text.of("Effect Warning Interval (ms)"), ScreamMod.config.effectInterval)
+                .setDefaultValue(500L)
+                .setMin(100L)
+                .setMax(5000L)
+                .setTooltip(Text.of("Milliseconds between repeated warning sounds while effect is still near expiry"))
+                .setSaveConsumer(newValue -> ScreamMod.config.effectInterval = newValue)
                 .build());
 
             // Save the file when the user clicks "Save and Quit"
