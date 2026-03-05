@@ -6,11 +6,13 @@ import com.example.screammod.config.ModConfig;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import java.util.Collection;
 
 public class ScreamMod implements ClientModInitializer {
     // Static so ModMenuIntegration can access it
@@ -47,20 +49,28 @@ public class ScreamMod implements ClientModInitializer {
                 }
 
                 // --- effect expiration warning ---
-                // only check fire resistance, speed, and strength for low remaining duration
                 int thresholdTicks = config.effectThresholdSeconds * 20;
+                Collection<StatusEffectInstance> effects = client.player.getStatusEffects();
+                
                 boolean warningNeeded = false;
-                for (StatusEffectInstance inst : client.player.getStatusEffects()) {
-                    StatusEffect effect = inst.getEffectType().value();
-                    if ((effect == StatusEffects.FIRE_RESISTANCE ||
-                         effect == StatusEffects.SPEED ||
-                         effect == StatusEffects.STRENGTH) &&
-                        inst.getDuration() > 0 &&
-                        inst.getDuration() <= thresholdTicks) {
+                for (StatusEffectInstance inst : effects) {
+                    // Get the RegistryEntry directly without calling .value()
+                    RegistryEntry<StatusEffect> effectEntry = inst.getEffectType();
+                    int duration = inst.getDuration();
+                    
+                    // Compare RegistryEntry to RegistryEntry using .equals()
+                    boolean isTargetEffect = (effectEntry.equals(StatusEffects.FIRE_RESISTANCE) ||
+                                              effectEntry.equals(StatusEffects.SPEED) ||
+                                              effectEntry.equals(StatusEffects.STRENGTH));
+                                              
+                    boolean isLowDuration = duration > 0 && duration <= thresholdTicks;
+                    
+                    if (isTargetEffect && isLowDuration) {
                         warningNeeded = true;
                         break;
                     }
                 }
+                
                 if (warningNeeded) {
                     if (currentTime - lastEffectWarningTime >= config.effectInterval) {
                         client.player.playSound(config.getEffectSoundEvent(), 1.0f, 1.0f);
