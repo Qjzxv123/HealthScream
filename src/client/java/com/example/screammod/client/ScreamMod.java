@@ -7,6 +7,10 @@ import com.example.screammod.config.ModConfig;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
 public class ScreamMod implements ClientModInitializer {
     // Static so ModMenuIntegration can access it
@@ -16,6 +20,10 @@ public class ScreamMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // Register custom sound events
+        Registry.register(Registries.SOUND_EVENT, Identifier.of("scream-mod", "default"), SoundEvent.of(Identifier.of("scream-mod", "default")));
+        Registry.register(Registries.SOUND_EVENT, Identifier.of("scream-mod", "potup"), SoundEvent.of(Identifier.of("scream-mod", "potup")));
+
         // Load settings from the .properties file on startup
         config.load();
 
