@@ -33,12 +33,12 @@ public class ModConfig {
         try (InputStream input = new FileInputStream(CONFIG_FILE)) {
             Properties prop = new Properties();
             prop.load(input);
-            triggerHearts = Float.parseFloat(prop.getProperty("triggerHearts", "7.0"));
-            screamInterval = Long.parseLong(prop.getProperty("screamInterval", "500"));
-            soundId = prop.getProperty("soundId", "scream-mod:default");
-            effectSoundId = prop.getProperty("effectSoundId", "scream-mod:default");
+            triggerHearts = Float.parseFloat(prop.getProperty("triggerHearts", "14.0"));
+            screamInterval = Long.parseLong(prop.getProperty("screamInterval", "1000"));
+            soundId = prop.getProperty("soundId", "entity.ghast.scream");
+            effectSoundId = prop.getProperty("effectSoundId", "entity.generic.drink");
             effectThresholdSeconds = Integer.parseInt(prop.getProperty("effectThresholdSeconds", "5"));
-            effectInterval = Long.parseLong(prop.getProperty("effectInterval", "500"));
+            effectInterval = Long.parseLong(prop.getProperty("effectInterval", "1000"));
         } catch (IOException | NumberFormatException e) {
             System.err.println("[ScreamMod] Failed to load config!");
         }

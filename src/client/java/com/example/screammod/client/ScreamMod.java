@@ -39,21 +39,35 @@ public class ScreamMod implements ClientModInitializer {
                 }
 
                 // --- effect expiration warning ---
-                // check fire resistance, speed, strength for low remaining duration
+                // warn when any *beneficial* status effect is about to run out
                 int thresholdTicks = config.effectThresholdSeconds * 20;
                 boolean warningNeeded = false;
                 for (StatusEffectInstance inst : client.player.getStatusEffects()) {
                     // convert registry entry to actual effect
                     StatusEffect effect = inst.getEffectType().value();
-                    if ((effect == StatusEffects.FIRE_RESISTANCE ||
-                         effect == StatusEffects.SPEED ||
-                         effect == StatusEffects.STRENGTH) &&
-                        inst.getDuration() > 0 &&
-                        inst.getDuration() <= thresholdTicks) {
-                        warningNeeded = true;
-                        break;
+                    int duration = inst.getDuration();
+                    if (duration > 0 && duration <= thresholdTicks) {
+                        // only sound for positive effects, not poison/weakness/etc.
+                        try {
+                            if (effect.isBeneficial()) {
+                                warningNeeded = true;
+                                // debug log so we can see which effect triggered
+                                System.out.println("[ScreamMod] effect warning: " + effect.getTranslationKey() + " (" + duration + " ticks left)");
+                                break;
+                            }
+                        } catch (NoSuchMethodError e) {
+                            // if the mapping doesn't include isBeneficial(), fall back to the
+                            // old hardcoded list so we at least warn for the three known buffs.
+                            if (effect == StatusEffects.FIRE_RESISTANCE ||
+                                effect == StatusEffects.SPEED ||
+                                effect == StatusEffects.STRENGTH) {
+                                warningNeeded = true;
+                                break;
+                            }
+                        }
                     }
                 }
+
                 if (warningNeeded) {
                     if (currentTime - lastEffectWarningTime >= config.effectInterval) {
                         client.player.playSound(config.getEffectSoundEvent(), 1.0f, 1.0f);
